@@ -8,6 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
+function encodeForm(data: Record<string, string>) {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+}
+
 export default function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
 
@@ -15,12 +21,12 @@ export default function ContactPage() {
     e.preventDefault();
     setStatus("sending");
     const form = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(form.entries());
+    const payload = Object.fromEntries(form.entries()) as Record<string, string>;
     try {
-      const res = await fetch("/api/intake", {
+      const res = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, business: payload.business || "(contact form)", source: "contact" }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeForm({ ...payload, business: payload.business || "(contact form)" }),
       });
       if (!res.ok) throw new Error("failed");
       setStatus("done");
@@ -71,7 +77,19 @@ export default function ContactPage() {
               <p className="mt-3 text-dim">We&apos;ll get back to you within one business day.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              name="contact"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <p className="hidden">
+                <label>
+                  Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+                </label>
+              </p>
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <Label htmlFor="name">Name</Label>
