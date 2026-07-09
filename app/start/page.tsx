@@ -35,7 +35,7 @@ export default function StartPage() {
     const form = new FormData(e.currentTarget);
     const payload = Object.fromEntries(form.entries()) as Record<string, string>;
     try {
-      const res = await fetch("/", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encodeForm({ ...payload, package: pkg, businessType: type }),
