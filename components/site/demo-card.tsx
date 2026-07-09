@@ -4,8 +4,11 @@ import { cn } from "@/lib/utils";
 import type { DEMOS } from "@/lib/data";
 
 export function DemoCard({ demo }: { demo: (typeof DEMOS)[number] }) {
-  return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-glow">
+  const href = (demo as { demoUrl?: string }).demoUrl;
+  const isLive = Boolean(href);
+
+  const cardBody = (
+    <>
       <div
         className={cn(
           "dot-grid relative flex h-44 items-center justify-center bg-gradient-to-br",
@@ -16,7 +19,7 @@ export function DemoCard({ demo }: { demo: (typeof DEMOS)[number] }) {
           {demo.initial}
         </div>
         <span className="absolute right-4 top-4 rounded-full bg-ink/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-dim backdrop-blur">
-          Demo build
+          {isLive ? "View demo" : "Concept build"}
         </span>
       </div>
       <div className="p-6">
@@ -27,10 +30,27 @@ export function DemoCard({ demo }: { demo: (typeof DEMOS)[number] }) {
               {demo.type}
             </p>
           </div>
-          <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-faint transition-colors group-hover:text-brand-soft" />
+          {isLive && (
+            <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-faint transition-colors group-hover:text-brand-soft" />
+          )}
         </div>
         <p className="mt-3 text-sm leading-relaxed text-dim">{demo.angle}</p>
       </div>
-    </Card>
+    </>
   );
+
+  const className = cn(
+    "group overflow-hidden transition-all duration-300",
+    isLive && "cursor-pointer hover:-translate-y-1 hover:border-brand/40 hover:shadow-glow"
+  );
+
+  if (isLive) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className="block">
+        <Card className={className}>{cardBody}</Card>
+      </a>
+    );
+  }
+
+  return <Card className={className}>{cardBody}</Card>;
 }
