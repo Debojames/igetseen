@@ -18,6 +18,12 @@ const TYPES = [
   "Other local service",
 ];
 
+function encodeForm(data: Record<string, string>) {
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+}
+
 export default function StartPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [pkg, setPkg] = useState(PACKAGES[3]);
@@ -27,12 +33,12 @@ export default function StartPage() {
     e.preventDefault();
     setStatus("sending");
     const form = new FormData(e.currentTarget);
-    const payload = Object.fromEntries(form.entries());
+    const payload = Object.fromEntries(form.entries()) as Record<string, string>;
     try {
-      const res = await fetch("/api/intake", {
+      const res = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, package: pkg, businessType: type }),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encodeForm({ ...payload, package: pkg, businessType: type }),
       });
       if (!res.ok) throw new Error("failed");
       setStatus("done");
@@ -77,7 +83,21 @@ export default function StartPage() {
         </div>
 
         <Card className="p-7 sm:p-10">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form
+            name="start"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            onSubmit={handleSubmit}
+            className="space-y-6"
+          >
+            <input type="hidden" name="form-name" value="start" />
+            <p className="hidden">
+              <label>
+                Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+              </label>
+            </p>
+            <input type="hidden" name="package" value={pkg} />
+            <input type="hidden" name="businessType" value={type} />
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
                 <Label htmlFor="name">Your name</Label>
