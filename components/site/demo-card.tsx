@@ -9,15 +9,20 @@ export function DemoCard({ demo }: { demo: (typeof DEMOS)[number] }) {
 
   const cardBody = (
     <>
-      <div
-        className={cn(
-          "dot-grid relative flex h-44 items-center justify-center bg-gradient-to-br",
-          demo.tone
-        )}
-      >
-        <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-ink/60 font-display text-2xl font-bold text-cream backdrop-blur">
-          {demo.initial}
-        </div>
+      <div className="relative h-44 overflow-hidden">
+        <img
+          src={demo.image}
+          alt={`${demo.name} — ${demo.type}`}
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+        />
+        <div
+          className={cn(
+            "absolute inset-0 bg-gradient-to-br mix-blend-multiply",
+            demo.tone
+          )}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
         <span className="absolute right-4 top-4 rounded-full bg-ink/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-dim backdrop-blur">
           {isLive ? "View demo" : "Concept build"}
         </span>
