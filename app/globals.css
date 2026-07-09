@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --font-display: "Bricolage Grotesque Variable", sans-serif;
+  --font-body: "Instrument Sans Variable", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink text-cream font-body antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(124, 58, 237, 0.45);
+  color: #fff;
+}
+
+*:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hairline section divider */
+.hairline {
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+/* Eyebrow label */
+.eyebrow {
+  @apply text-xs font-semibold uppercase tracking-[0.22em] text-brand-soft;
+}
+
+/* Violet ambient glow */
+.glow-field {
+  background:
+    radial-gradient(600px 320px at 70% 0%, rgba(124, 58, 237, 0.16), transparent 70%),
+    radial-gradient(500px 300px at 15% 10%, rgba(124, 58, 237, 0.08), transparent 70%);
+}
+
+/* Subtle dotted texture for panels */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
