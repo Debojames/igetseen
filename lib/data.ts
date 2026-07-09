@@ -137,6 +137,8 @@ export const DEMOS = [
     angle: "Menu-first layout, dinner-hour dark palette, one-tap reservations.",
     tone: "from-orange-500/30 to-red-500/10",
     initial: "E",
+    image:
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Fade District",
@@ -144,6 +146,8 @@ export const DEMOS = [
     angle: "Gallery-led design that sells the cut before the chair.",
     tone: "from-brand/40 to-blue-500/10",
     initial: "F",
+    image:
+      "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "BrightNest Cleaning",
@@ -151,6 +155,8 @@ export const DEMOS = [
     angle: "Trust-first: reviews up top, instant quote form, service-area map.",
     tone: "from-emerald-500/30 to-teal-500/10",
     initial: "B",
+    image:
+      "https://images.unsplash.com/photo-1740657254989-42fe9c3b8cce?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Ironline Contracting",
@@ -158,6 +164,8 @@ export const DEMOS = [
     angle: "Project proof, licensing front and center, bid-request flow.",
     tone: "from-amber-500/30 to-yellow-500/10",
     initial: "I",
+    image:
+      "https://images.unsplash.com/photo-1587582423116-ec07293f0395?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "La Vela Taquería",
@@ -165,6 +173,8 @@ export const DEMOS = [
     angle: "Live location, today's menu, and photos that do the selling.",
     tone: "from-rose-500/30 to-pink-500/10",
     initial: "L",
+    image:
+      "https://images.unsplash.com/photo-1612208176815-e132bcf971b0?q=80&w=800&auto=format&fit=crop",
   },
   {
     name: "Polished & Co.",
@@ -172,6 +182,8 @@ export const DEMOS = [
     angle: "Style gallery, price list, and a booking CTA that's never more than one scroll away.",
     tone: "from-fuchsia-500/30 to-brand/10",
     initial: "P",
+    image:
+      "https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
